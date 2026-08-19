@@ -6,236 +6,57 @@
 <title>Тест: Таблица умножения и деления</title>
 <style>
   :root {
-    --bg: #0f1117;
-    --surface: #1a1d27;
-    --surface2: #242836;
-    --border: #2e3345;
-    --accent: #6c5ce7;
-    --accent-hover: #7f70f0;
-    --green: #00b894;
-    --red: #e17055;
-    --yellow: #fdcb6e;
-    --text: #e8e8ee;
-    --text-dim: #8a8ea0;
-    --radius: 12px;
+    --bg: #0f1117; --surface: #1a1d27; --surface2: #242836; --border: #2e3345;
+    --accent: #6c5ce7; --accent-hover: #7f70f0; --green: #00b894; --red: #e17055;
+    --yellow: #fdcb6e; --text: #e8e8ee; --text-dim: #8a8ea0; --radius: 12px;
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    padding: 20px;
-  }
-
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; justify-content: center; padding: 20px; }
   .app { width: 100%; max-width: 700px; margin-top: 30px; }
-
-  h1 {
-    text-align: center;
-    font-size: 1.8rem;
-    font-weight: 700;
-    margin-bottom: 8px;
-    background: linear-gradient(135deg, var(--accent), #a29bfe);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
+  h1 { text-align: center; font-size: 1.8rem; font-weight: 700; margin-bottom: 8px; background: linear-gradient(135deg, var(--accent), #a29bfe); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
   .subtitle { text-align: center; color: var(--text-dim); font-size: .95rem; margin-bottom: 30px; }
-  .screen { display: none; }
-  .screen.active { display: block; }
-
-  .settings-card, .question-card, .results-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-  }
-
+  .screen { display: none; } .screen.active { display: block; }
+  .settings-card, .question-card, .results-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); }
   .settings-card { padding: 30px; }
-
-  .setting-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
-
+  .setting-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
   .setting-row label { font-size: 1rem; }
-
-  .setting-row input[type="number"] {
-    width: 90px;
-    padding: 8px 12px;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    background: var(--surface2);
-    color: var(--text);
-    font-size: 1rem;
-    text-align: center;
-    outline: none;
-  }
-
+  .setting-row input[type="number"] { width: 90px; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface2); color: var(--text); font-size: 1rem; text-align: center; outline: none; }
   .setting-row input[type="number"]:focus { border-color: var(--accent); }
-
   .toggle-group { display: flex; gap: 10px; margin-bottom: 25px; flex-wrap: wrap; }
-
-  .toggle-btn {
-    padding: 8px 18px;
-    border-radius: 20px;
-    border: 1px solid var(--border);
-    background: var(--surface2);
-    color: var(--text-dim);
-    cursor: pointer;
-    font-size: .9rem;
-    transition: all .2s;
-  }
-
-  .toggle-btn.active {
-    border-color: var(--accent);
-    background: rgba(108,92,231,.15);
-    color: var(--accent-hover);
-  }
-
-  .btn {
-    display: block;
-    width: 100%;
-    padding: 14px;
-    border-radius: var(--radius);
-    border: none;
-    font-size: 1.05rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all .2s;
-    margin-top: 10px;
-  }
-
-  .btn-primary { background: var(--accent); color: #fff; }
-  .btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); }
-  .btn-secondary { background: var(--surface2); color: var(--text-dim); border: 1px solid var(--border); }
-  .btn-secondary:hover { color: var(--text); border-color: var(--text-dim); }
-  .btn-export { background: var(--green); color: #fff; }
-  .btn-export:hover { background: #00a381; }
-  .hidden { display: none !important; }
-
+  .toggle-btn { padding: 8px 18px; border-radius: 20px; border: 1px solid var(--border); background: var(--surface2); color: var(--text-dim); cursor: pointer; font-size: .9rem; transition: all .2s; }
+  .toggle-btn.active { border-color: var(--accent); background: rgba(108,92,231,.15); color: var(--accent-hover); }
+  .btn { display: block; width: 100%; padding: 14px; border-radius: var(--radius); border: none; font-size: 1.05rem; font-weight: 600; cursor: pointer; transition: all .2s; margin-top: 10px; }
+  .btn-primary { background: var(--accent); color: #fff; } .btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); }
+  .btn-secondary { background: var(--surface2); color: var(--text-dim); border: 1px solid var(--border); } .btn-secondary:hover { color: var(--text); border-color: var(--text-dim); }
+  .btn-export { background: var(--green); color: #fff; } .btn-export:hover { background: #00a381; }
+  .btn:disabled { opacity: .55; cursor: default; transform: none; }
   .error-msg { color: var(--red); font-size: .85rem; margin-top: 6px; min-height: 20px; }
-  .info-text { color: var(--text-dim); font-size: .85rem; text-align: center; margin-top: 10px; }
-
   .progress-area { margin-bottom: 25px; }
-  .progress-info {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 8px;
-    font-size: .9rem;
-    color: var(--text-dim);
-  }
+  .progress-info { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: .9rem; color: var(--text-dim); }
   .progress-bar-bg { height: 8px; background: var(--surface2); border-radius: 4px; overflow: hidden; }
-  .progress-bar-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--accent), #a29bfe);
-    border-radius: 4px;
-    transition: width .4s ease;
-  }
-
-  .question-card {
-    padding: 38px 30px 30px;
-    text-align: center;
-    min-height: 310px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
+  .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), #a29bfe); border-radius: 4px; transition: width .4s ease; }
+  .question-card { padding: 38px 30px 30px; text-align: center; min-height: 310px; display: flex; flex-direction: column; justify-content: center; }
   .question-number { color: var(--text-dim); font-size: .9rem; margin-bottom: 20px; }
   .question-expression { font-size: clamp(2.4rem, 8vw, 4rem); font-weight: 700; letter-spacing: .03em; margin-bottom: 28px; }
-
   .answer-row { display: flex; justify-content: center; align-items: center; gap: 12px; }
   .answer-equals { font-size: 2rem; color: var(--text-dim); }
-
-  .q-answer-input {
-    width: 130px;
-    padding: 12px 14px;
-    border-radius: 10px;
-    border: 2px solid var(--border);
-    background: var(--surface2);
-    color: var(--text);
-    font-size: 1.6rem;
-    text-align: center;
-    outline: none;
-    transition: all .2s;
-  }
+  .q-answer-input { width: 130px; padding: 12px 14px; border-radius: 10px; border: 2px solid var(--border); background: var(--surface2); color: var(--text); font-size: 1.6rem; text-align: center; outline: none; transition: all .2s; }
   .q-answer-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(108,92,231,.15); }
   .q-answer-input.correct-input { border-color: var(--green); background: rgba(0,184,148,.1); }
   .q-answer-input.wrong-input { border-color: var(--red); background: rgba(225,112,85,.1); }
-
-  .answer-feedback {
-    min-height: 30px;
-    margin-top: 16px;
-    font-size: .95rem;
-    font-weight: 600;
-  }
-  .feedback-correct { color: var(--green); }
-  .feedback-wrong { color: var(--red); }
-
-  .q-buttons { display: flex; gap: 10px; margin-top: 20px; }
-  .q-buttons .btn { flex: 1; }
+  .answer-feedback { min-height: 30px; margin-top: 16px; font-size: .95rem; font-weight: 600; }
+  .feedback-correct { color: var(--green); } .feedback-wrong { color: var(--red); }
+  .q-buttons { display: flex; gap: 10px; margin-top: 20px; } .q-buttons .btn { flex: 1; }
   .typing-hint { color: var(--text-dim); font-size: .8rem; text-align: center; margin-top: 6px; }
-
   .results-card { padding: 30px; text-align: center; }
   .result-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 20px; }
   .stats-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 15px; margin-bottom: 25px; }
   .stat-box { background: var(--surface2); border-radius: 10px; padding: 18px 10px; }
-  .stat-value { font-size: 2rem; font-weight: 700; }
-  .stat-label { font-size: .8rem; color: var(--text-dim); margin-top: 4px; }
-  .stat-box.green .stat-value { color: var(--green); }
-  .stat-box.red .stat-value { color: var(--red); }
-  .stat-box.blue .stat-value { color: #74b9ff; }
-
-  .score-circle {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    margin: 0 auto 25px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2.2rem;
-    font-weight: 800;
-    position: relative;
-  }
-  .score-circle::before {
-    content: '';
-    position: absolute;
-    inset: -4px;
-    border-radius: 50%;
-    padding: 4px;
-    background: conic-gradient(var(--accent) var(--pct), var(--border) var(--pct));
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-  }
-
-  .protocol-area { margin-top: 25px; text-align: left; }
-  .protocol-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-  .protocol-header h3 { font-size: 1.1rem; }
-  .protocol-list {
-    background: var(--surface2);
-    border-radius: 10px;
-    padding: 15px 20px;
-    max-height: 400px;
-    overflow-y: auto;
-    font-size: .9rem;
-    line-height: 1.8;
-  }
-
-  @media (max-width: 500px) {
-    .stats-grid { grid-template-columns: 1fr; gap: 10px; }
-    .settings-card, .question-card, .results-card { padding: 22px 16px; }
-    .question-expression { font-size: 2.4rem; }
-    .q-answer-input { width: 105px; font-size: 1.4rem; }
-  }
+  .stat-value { font-size: 2rem; font-weight: 700; } .stat-label { font-size: .8rem; color: var(--text-dim); margin-top: 4px; }
+  .stat-box.green .stat-value { color: var(--green); } .stat-box.red .stat-value { color: var(--red); } .stat-box.blue .stat-value { color: #74b9ff; }
+  .score-circle { width: 120px; height: 120px; border-radius: 50%; margin: 0 auto 25px; display: flex; align-items: center; justify-content: center; font-size: 2.2rem; font-weight: 800; position: relative; }
+  .score-circle::before { content: ''; position: absolute; inset: -4px; border-radius: 50%; padding: 4px; background: conic-gradient(var(--accent) var(--pct), var(--border) var(--pct)); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
+  @media (max-width: 500px) { .stats-grid { grid-template-columns: 1fr; gap: 10px; } .settings-card, .question-card, .results-card { padding: 22px 16px; } .question-expression { font-size: 2.4rem; } .q-answer-input { width: 105px; font-size: 1.4rem; } }
 </style>
 </head>
 <body>
@@ -247,9 +68,8 @@
     <div class="settings-card">
       <div class="setting-row">
         <label for="q-count">Количество вопросов:</label>
-        <input type="number" id="q-count" min="1" max="162" value="20">
+        <input type="number" id="q-count" min="1" max="126" value="20">
       </div>
-
       <div style="margin-bottom:18px;">
         <label style="font-size:.95rem;color:var(--text-dim);display:block;margin-bottom:10px;">Типы задач:</label>
         <div class="toggle-group">
@@ -257,11 +77,7 @@
           <button type="button" class="toggle-btn active" data-type="divide" onclick="toggleType(this)">÷ Деление</button>
         </div>
       </div>
-
-      <p style="color:var(--text-dim);font-size:.85rem;margin-bottom:15px;">
-        💡 При ошибке добавятся 2 новых, ранее не встречавшихся вопроса.
-      </p>
-
+      <p style="color:var(--text-dim);font-size:.85rem;margin-bottom:15px;">💡 При ошибке добавятся 2 новых вопроса, которые ещё не встречались в этом тесте.</p>
       <button class="btn btn-primary" onclick="startTest()">🚀 Начать тест</button>
       <div id="settings-error" class="error-msg"></div>
     </div>
@@ -269,23 +85,15 @@
 
   <div id="screen-test" class="screen">
     <div class="progress-area">
-      <div class="progress-info">
-        <span id="progress-text">0 из 20</span>
-        <span id="progress-pct">0%</span>
-      </div>
+      <div class="progress-info"><span id="progress-text">0 пройдено · 20 осталось</span><span id="progress-pct">0%</span></div>
       <div class="progress-bar-bg"><div id="progress-fill" class="progress-bar-fill" style="width:0%"></div></div>
     </div>
-
     <div class="question-card">
       <div id="question-number" class="question-number">Вопрос 1</div>
       <div id="question-expression" class="question-expression">—</div>
-      <div class="answer-row">
-        <span class="answer-equals">=</span>
-        <input type="number" id="question-answer" class="q-answer-input" step="any" placeholder="?" autocomplete="off">
-      </div>
+      <div class="answer-row"><span class="answer-equals">=</span><input type="number" id="question-answer" class="q-answer-input" step="any" placeholder="?" autocomplete="off"></div>
       <div id="answer-feedback" class="answer-feedback"></div>
     </div>
-
     <div class="q-buttons">
       <button class="btn btn-secondary" onclick="finishEarly()">⏹ Завершить</button>
       <button id="btn-submit" class="btn btn-primary" onclick="submitCurrentAnswer()">✓ Проверить</button>
@@ -302,350 +110,167 @@
         <div class="stat-box green"><div class="stat-value" id="stat-correct">0</div><div class="stat-label">Правильных</div></div>
         <div class="stat-box red"><div class="stat-value" id="stat-wrong">0</div><div class="stat-label">Неправильных</div></div>
       </div>
-      <button class="btn btn-export" id="btn-download-protocol" onclick="downloadProtocol()">📄 Скачать протокол (.txt)</button>
+      <button class="btn btn-export" onclick="downloadProtocol()">📄 Скачать протокол (.txt)</button>
       <button class="btn btn-secondary" style="margin-top:12px;" onclick="restartTest()">🔄 Начать заново</button>
     </div>
   </div>
 </div>
 
 <script>
-// ===== STATE =====
 let questions = [];
 let questionQueue = [];
 let currentQuestionIndex = 0;
 let answeredCount = 0;
 let testFinished = false;
 let nextQuestionId = 1;
-const MAX_EXTRA_QUESTIONS = 50;
-let extraQuestionsAdded = 0;
 
-// ===== SETTINGS =====
-function toggleType(btn) {
-  btn.classList.toggle('active');
-}
+function toggleType(btn) { btn.classList.toggle('active'); }
+function getSelectedTypes() { return [...document.querySelectorAll('.toggle-btn.active')].map(btn => btn.dataset.type); }
 
-function getSelectedTypes() {
-  return [...document.querySelectorAll('.toggle-btn.active')].map(btn => btn.dataset.type);
-}
-
-// ===== QUESTION GENERATION =====
-// Every possible task has a stable key. This lets us guarantee that the same
-// expression/operator pair is never shown twice during one test.
+// 45 multiplication facts: 2×3 and 3×2 are treated as the same fact.
+// 81 division tasks: dividend/divisor with an integer result from 1 to 9.
 function buildQuestionPool(types) {
   const pool = [];
-
   if (types.includes('multiply')) {
     for (let a = 1; a <= 9; a++) {
-      for (let b = 1; b <= 9; b++) {
-        pool.push({
-          key: `multiply:${a}x${b}`,
-          type: 'multiply',
-          expression: `${a} × ${b}`,
-          answer: a * b
-        });
+      for (let b = a; b <= 9; b++) {
+        pool.push({ key:`multiply:${a}:${b}`, type:'multiply', expression:`${a} × ${b}`, answer:a*b });
       }
     }
   }
-
   if (types.includes('divide')) {
-    for (let dividend = 1; dividend <= 81; dividend++) {
-      for (let divisor = 1; divisor <= 9; divisor++) {
-        if (dividend % divisor !== 0) continue;
-        const answer = dividend / divisor;
-        if (answer < 1 || answer > 9) continue;
-        pool.push({
-          key: `divide:${dividend}:${divisor}`,
-          type: 'divide',
-          expression: `${dividend} ÷ ${divisor}`,
-          answer
-        });
+    for (let divisor = 1; divisor <= 9; divisor++) {
+      for (let answer = 1; answer <= 9; answer++) {
+        const dividend = divisor * answer;
+        pool.push({ key:`divide:${dividend}:${divisor}`, type:'divide', expression:`${dividend} ÷ ${divisor}`, answer });
       }
     }
   }
-
   return shuffle(pool);
 }
 
 function shuffle(array) {
   const result = [...array];
-  for (let i = result.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [result[i], result[j]] = [result[j], result[i]];
-  }
+  for (let i=result.length-1;i>0;i--) { const j=Math.floor(Math.random()*(i+1)); [result[i],result[j]]=[result[j],result[i]]; }
   return result;
 }
 
-function createQuestion(definition, isExtra = false) {
-  return {
-    id: nextQuestionId++,
-    key: definition.key,
-    type: definition.type,
-    expression: definition.expression,
-    answer: definition.answer,
-    userAnswer: null,
-    isCorrect: null,
-    isExtra,
-    answered: false
-  };
+function createQuestion(definition, isExtra=false) {
+  return { id:nextQuestionId++, key:definition.key, type:definition.type, expression:definition.expression, answer:definition.answer, userAnswer:null, isCorrect:null, isExtra, answered:false };
 }
 
 function startTest() {
-  const countInput = document.getElementById('q-count');
-  let count = parseInt(countInput.value, 10);
+  const count = parseInt(document.getElementById('q-count').value, 10);
   const errorEl = document.getElementById('settings-error');
   const types = getSelectedTypes();
-
-  if (!Number.isInteger(count) || count < 1) {
-    errorEl.textContent = 'Введите корректное количество вопросов (минимум 1).';
-    return;
-  }
-  if (types.length === 0) {
-    errorEl.textContent = 'Выберите хотя бы один тип задач.';
-    return;
-  }
+  if (!Number.isInteger(count) || count < 1) { errorEl.textContent='Введите корректное количество вопросов (минимум 1).'; return; }
+  if (!types.length) { errorEl.textContent='Выберите хотя бы один тип задач.'; return; }
 
   const pool = buildQuestionPool(types);
-  if (count > pool.length) {
-    errorEl.textContent = `Для выбранных типов доступно только ${pool.length} уникальных вопросов.`;
-    return;
-  }
+  if (count > pool.length) { errorEl.textContent=`Для выбранных типов доступно только ${pool.length} уникальных вопросов.`; return; }
 
-  errorEl.textContent = '';
-  questions = [];
-  questionQueue = [];
-  currentQuestionIndex = 0;
-  answeredCount = 0;
-  testFinished = false;
-  nextQuestionId = 1;
-  extraQuestionsAdded = 0;
-
-  const initialDefinitions = pool.slice(0, count);
-  const remainingDefinitions = pool.slice(count);
-
-  initialDefinitions.forEach(definition => questions.push(createQuestion(definition, false)));
-  questionQueue = remainingDefinitions;
-
+  errorEl.textContent='';
+  questions=[]; questionQueue=[]; currentQuestionIndex=0; answeredCount=0; testFinished=false; nextQuestionId=1;
+  questions = pool.slice(0,count).map(def => createQuestion(def));
+  questionQueue = pool.slice(count);
   showScreen('screen-test');
   renderCurrentQuestion();
 }
 
-// ===== TEST FLOW =====
 function renderCurrentQuestion() {
   if (testFinished) return;
-
-  const q = questions[currentQuestionIndex];
-  if (!q) {
-    showResults();
-    return;
-  }
-
-  document.getElementById('question-number').textContent = `Вопрос ${currentQuestionIndex + 1} из ${questions.length}`;
-  document.getElementById('question-expression').textContent = q.expression;
-
-  const input = document.getElementById('question-answer');
-  input.value = '';
-  input.disabled = false;
-  input.className = 'q-answer-input';
-  document.getElementById('answer-feedback').textContent = '';
-  document.getElementById('answer-feedback').className = 'answer-feedback';
-  document.getElementById('btn-submit').disabled = false;
-  document.getElementById('btn-submit').textContent = '✓ Проверить';
-
+  const q=questions[currentQuestionIndex];
+  if (!q) { showResults(); return; }
+  document.getElementById('question-number').textContent=`Вопрос ${currentQuestionIndex+1} из ${questions.length}`;
+  document.getElementById('question-expression').textContent=q.expression;
+  const input=document.getElementById('question-answer');
+  input.value=''; input.disabled=false; input.className='q-answer-input'; input.focus();
+  const feedback=document.getElementById('answer-feedback');
+  feedback.textContent=''; feedback.className='answer-feedback';
+  const button=document.getElementById('btn-submit');
+  button.disabled=false; button.textContent='✓ Проверить'; button.onclick=submitCurrentAnswer;
   updateProgress();
-  setTimeout(() => input.focus(), 0);
 }
 
 function submitCurrentAnswer() {
   if (testFinished) return;
-
-  const q = questions[currentQuestionIndex];
+  const q=questions[currentQuestionIndex];
   if (!q || q.answered) return;
+  const input=document.getElementById('question-answer');
+  const raw=input.value.trim();
+  if (!raw) { input.focus(); return; }
+  const value=Number(raw);
+  if (!Number.isFinite(value)) { input.focus(); return; }
 
-  const input = document.getElementById('question-answer');
-  const rawValue = input.value.trim();
-  if (rawValue === '') {
-    input.focus();
-    return;
-  }
-
-  const userAnswer = Number(rawValue);
-  if (!Number.isFinite(userAnswer)) {
-    input.focus();
-    return;
-  }
-
-  q.userAnswer = userAnswer;
-  q.isCorrect = Math.abs(userAnswer - q.answer) < 0.000001;
-  q.answered = true;
-  answeredCount++;
-
-  input.disabled = true;
-  const feedback = document.getElementById('answer-feedback');
-
+  q.userAnswer=value; q.isCorrect=Math.abs(value-q.answer)<0.000001; q.answered=true; answeredCount++;
+  input.disabled=true;
+  const feedback=document.getElementById('answer-feedback');
   if (q.isCorrect) {
-    input.classList.add('correct-input');
-    feedback.textContent = '✓ Правильно!';
-    feedback.classList.add('feedback-correct');
+    input.classList.add('correct-input'); feedback.textContent='✓ Правильно!'; feedback.classList.add('feedback-correct');
   } else {
-    input.classList.add('wrong-input');
-    feedback.textContent = `✗ Неправильно. Правильный ответ: ${formatNum(q.answer)}`;
-    feedback.classList.add('feedback-wrong');
-    addExtraQuestions();
+    input.classList.add('wrong-input'); feedback.textContent=`✗ Неправильно. Правильный ответ: ${formatNum(q.answer)}`; feedback.classList.add('feedback-wrong'); addExtraQuestions();
   }
-
   updateProgress();
 
-  if (currentQuestionIndex >= questions.length - 1) {
-    setTimeout(showResults, 700);
-    return;
-  }
-
-  document.getElementById('btn-submit').disabled = true;
-  document.getElementById('btn-submit').textContent = 'Следующий вопрос →';
-  document.getElementById('btn-submit').onclick = nextQuestion;
-
-  setTimeout(() => nextQuestion(), 700);
+  if (currentQuestionIndex >= questions.length-1) { setTimeout(showResults,700); return; }
+  const button=document.getElementById('btn-submit'); button.disabled=true; button.textContent='Следующий вопрос →'; button.onclick=nextQuestion;
+  setTimeout(nextQuestion,700);
 }
 
 function nextQuestion() {
   if (testFinished) return;
-  if (currentQuestionIndex >= questions.length - 1) {
-    showResults();
-    return;
-  }
-
+  if (currentQuestionIndex>=questions.length-1) { showResults(); return; }
   currentQuestionIndex++;
-  const button = document.getElementById('btn-submit');
-  button.disabled = false;
-  button.onclick = submitCurrentAnswer;
-  button.textContent = '✓ Проверить';
   renderCurrentQuestion();
 }
 
 function addExtraQuestions() {
-  if (extraQuestionsAdded >= MAX_EXTRA_QUESTIONS) return;
-
-  let added = 0;
-  while (added < 2 && questionQueue.length > 0 && extraQuestionsAdded < MAX_EXTRA_QUESTIONS) {
-    const definition = questionQueue.shift();
-    questions.push(createQuestion(definition, true));
-    extraQuestionsAdded++;
-    added++;
-  }
+  // The pool is finite, so no arbitrary safety cap is needed.
+  // If fewer than two unique tasks remain, add whatever is available.
+  for (let i=0;i<2 && questionQueue.length>0;i++) questions.push(createQuestion(questionQueue.shift(),true));
 }
 
-function finishEarly() {
-  if (testFinished) return;
-  testFinished = true;
-  showResults();
-}
+function finishEarly() { if (!testFinished) { testFinished=true; showResults(); } }
 
 function updateProgress() {
-  const total = questions.length;
-  const done = answeredCount;
-  const remaining = Math.max(total - done, 0);
-  const pct = total > 0 ? Math.round((done / total) * 100) : 0;
-
-  document.getElementById('progress-text').textContent = `${done} пройдено · ${remaining} осталось`;
-  document.getElementById('progress-pct').textContent = `${pct}%`;
-  document.getElementById('progress-fill').style.width = `${pct}%`;
+  const total=questions.length, done=answeredCount, remaining=Math.max(total-done,0), pct=total?Math.round(done/total*100):0;
+  document.getElementById('progress-text').textContent=`${done} пройдено · ${remaining} осталось`;
+  document.getElementById('progress-pct').textContent=`${pct}%`;
+  document.getElementById('progress-fill').style.width=`${pct}%`;
 }
 
-// ===== RESULTS =====
 function showResults() {
   if (document.getElementById('screen-results').classList.contains('active')) return;
-
-  testFinished = true;
-  const total = questions.length;
-  const correctCount = questions.filter(q => q.isCorrect === true).length;
-  const wrongCount = total - correctCount;
-
-  questions.forEach(q => {
-    if (!q.answered) {
-      q.userAnswer = '—';
-      q.isCorrect = false;
-    }
-  });
-
-  document.getElementById('stat-total').textContent = total;
-  document.getElementById('stat-correct').textContent = correctCount;
-  document.getElementById('stat-wrong').textContent = wrongCount;
-
-  const pct = total > 0 ? Math.round((correctCount / total) * 100) : 0;
-  const circle = document.getElementById('score-circle-container');
-  circle.innerHTML = `<span style="position:relative;z-index:1">${pct}%</span>`;
-  circle.style.setProperty('--pct', `${pct}%`);
-  circle.style.color = pct >= 80 ? 'var(--green)' : pct >= 50 ? 'var(--yellow)' : 'var(--red)';
-
-  window._protocolText = buildProtocol(total, correctCount, wrongCount);
+  testFinished=true;
+  const total=questions.length;
+  const correct=questions.filter(q=>q.isCorrect===true).length;
+  const wrong=total-correct;
+  questions.forEach(q=>{ if(!q.answered){q.userAnswer='—';q.isCorrect=false;} });
+  document.getElementById('stat-total').textContent=total;
+  document.getElementById('stat-correct').textContent=correct;
+  document.getElementById('stat-wrong').textContent=wrong;
+  const pct=total?Math.round(correct/total*100):0;
+  const circle=document.getElementById('score-circle-container');
+  circle.innerHTML=`<span style="position:relative;z-index:1">${pct}%</span>`;
+  circle.style.setProperty('--pct',`${pct}%`);
+  circle.style.color=pct>=80?'var(--green)':pct>=50?'var(--yellow)':'var(--red)';
+  window._protocolText=buildProtocol(total,correct,wrong);
   showScreen('screen-results');
 }
 
-function buildProtocol(total, correctCount, wrongCount) {
-  const lines = [];
-  lines.push('═══════════════════════════════════════');
-  lines.push('    ПРОТОКОЛ ТЕСТА: ТАБЛИЦА УМНОЖЕНИЯ');
-  lines.push(`    Дата: ${new Date().toLocaleString('ru-RU')}`);
-  lines.push('═══════════════════════════════════════');
-  lines.push('');
-  lines.push(`Всего вопросов: ${total}`);
-  lines.push(`Правильных ответов: ${correctCount} (${total ? Math.round(correctCount / total * 100) : 0}%)`);
-  lines.push(`Неправильных ответов: ${wrongCount} (${total ? Math.round(wrongCount / total * 100) : 0}%)`);
-  lines.push('');
-  lines.push('───────────────────────────────────────');
-  lines.push('        ДЕТАЛЬНЫЙ ОТВЕТ');
-  lines.push('───────────────────────────────────────');
-
-  questions.forEach((q, index) => {
-    if (q.isCorrect) {
-      lines.push(`${index + 1}. ✓ ${q.expression} = ${formatNum(q.userAnswer)}`);
-    } else {
-      lines.push(`${index + 1}. ✗ ${q.expression} = ${formatNum(q.userAnswer)} → Правильно: ${formatNum(q.answer)}`);
-    }
-  });
-
-  lines.push('');
-  lines.push('═══════════════════════════════════════');
-  lines.push('Сгенерировано автоматически');
-  lines.push('═══════════════════════════════════════');
+function buildProtocol(total,correct,wrong) {
+  const lines=['═══════════════════════════════════════','    ПРОТОКОЛ ТЕСТА: ТАБЛИЦА УМНОЖЕНИЯ',`    Дата: ${new Date().toLocaleString('ru-RU')}`,'═══════════════════════════════════════','',`Всего вопросов: ${total}`,`Правильных ответов: ${correct} (${total?Math.round(correct/total*100):0}%)`,`Неправильных ответов: ${wrong} (${total?Math.round(wrong/total*100):0}%)`,'','───────────────────────────────────────','        ДЕТАЛЬНЫЙ ОТВЕТ','───────────────────────────────────────'];
+  questions.forEach((q,i)=>{ if(q.isCorrect) lines.push(`${i+1}. ✓ ${q.expression} = ${formatNum(q.userAnswer)}`); else lines.push(`${i+1}. ✗ ${q.expression} = ${formatNum(q.userAnswer)} → Правильно: ${formatNum(q.answer)}`); });
+  lines.push('','═══════════════════════════════════════','Сгенерировано автоматически','═══════════════════════════════════════');
   return lines.join('\n');
 }
 
-function formatNum(value) {
-  if (typeof value !== 'number' || Number.isNaN(value)) return String(value);
-  return Number.isInteger(value) ? String(value) : parseFloat(value.toFixed(4)).toString();
-}
+function formatNum(value) { if(typeof value!=='number'||Number.isNaN(value)) return String(value); return Number.isInteger(value)?String(value):parseFloat(value.toFixed(4)).toString(); }
+function downloadProtocol() { const blob=new Blob([window._protocolText],{type:'text/plain;charset=utf-8'}); const url=URL.createObjectURL(blob); const link=document.createElement('a'); link.href=url; link.download=`protocol_${new Date().toISOString().slice(0,10).replace(/-/g,'')}.txt`; document.body.appendChild(link); link.click(); link.remove(); setTimeout(()=>URL.revokeObjectURL(url),1000); }
+function restartTest() { testFinished=false; showScreen('screen-settings'); }
+function showScreen(id) { document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
 
-function downloadProtocol() {
-  const blob = new Blob([window._protocolText], { type: 'text/plain;charset=utf-8' });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement('a');
-  const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
-  link.href = url;
-  link.download = `protocol_${dateStr}.txt`;
-  document.body.appendChild(link);
-  link.click();
-  link.remove();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
-
-function restartTest() {
-  testFinished = false;
-  showScreen('screen-settings');
-}
-
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(screen => screen.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
-
-// Enter submits the only visible question.
-document.getElementById('question-answer').addEventListener('keydown', event => {
-  if (event.key !== 'Enter') return;
-  event.preventDefault();
-  const button = document.getElementById('btn-submit');
-  if (!button.disabled) button.click();
-});
+document.getElementById('question-answer').addEventListener('keydown',event=>{ if(event.key==='Enter'){event.preventDefault();const button=document.getElementById('btn-submit');if(!button.disabled)button.click();} });
 </script>
 </body>
 </html>
