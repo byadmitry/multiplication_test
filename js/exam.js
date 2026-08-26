@@ -13,8 +13,9 @@ let examState = {
 };
 
 function startExam() {
+    currentMode = "exam";
     const types = typeof getSelectedTypes === 'function' ? getSelectedTypes() : ['multiply', 'divide'];
-    examState.queue = buildQuestionPool(types).slice(0, Number(document.getElementById('q-count')?.value || 20));
+    examState.queue = buildQuestionPool(types.length ? types : ['multiply', 'divide']).slice(0, Number(document.getElementById('q-count')?.value || 20));
     examState.errors = [];
     examState.current = null;
     examState.correct = 0;
