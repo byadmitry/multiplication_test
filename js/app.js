@@ -28,6 +28,22 @@ function renderQuestion(expr, seconds = null) {
         </div>`;
 }
 
+function submitCurrent() {
+    const input = document.getElementById("answer-input");
+    if (!input) return;
+
+    if (currentMode === "exam") {
+        submitExamAnswer(input.value);
+    } else {
+        submitTrainingAnswer(input.value);
+    }
+}
+
+function updateTimerDisplay(seconds) {
+    const timer = document.getElementById("timer");
+    if (timer) timer.textContent = seconds;
+}
+
 function showResult(text) {
     document.getElementById("screen-test").classList.remove("active");
     document.getElementById("screen-results").classList.add("active");
