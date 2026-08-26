@@ -18,6 +18,7 @@ function startExam() {
     currentMode = "exam";
     const types = typeof getSelectedTypes === 'function' ? getSelectedTypes() : ['multiply', 'divide'];
     examState.queue = buildQuestionPool(types).slice(0, Number(document.getElementById('q-count')?.value || 20));
+    examState.total = examState.queue.length;
     examState.errors = [];
     examState.current = null;
     examState.correct = 0;
@@ -74,7 +75,7 @@ function finishExamEarly() {
     examState.finished = true;
     stopAnswerTimer();
     examState.current = null;
-    showResult('Экзамен завершён. Правильных: ' + examState.correct + ', ошибок: ' + examState.wrong);
+    showResult('Экзамен завершён. Решено: ' + examState.total + ' вопросов. Правильных: ' + examState.correct + ', ошибок: ' + examState.wrong);
 }
 
 function showExamFeedback(text, correct = null) {
