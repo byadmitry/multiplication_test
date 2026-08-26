@@ -15,6 +15,31 @@ let examState = {
     finished: false
 };
 
+function playAnswerSound(correct) {
+    try {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+
+        oscillator.connect(gain);
+        gain.connect(audioContext.destination);
+
+        if (correct) {
+            oscillator.frequency.value = 880;
+            gain.gain.value = 0.12;
+            oscillator.start();
+            oscillator.stop(audioContext.currentTime + 0.15);
+        } else {
+            oscillator.frequency.value = 220;
+            gain.gain.value = 0.15;
+            oscillator.start();
+            oscillator.stop(audioContext.currentTime + 0.25);
+        }
+    } catch (e) {
+        console.warn('Звук недоступен', e);
+    }
+}
+
 function startExam() {
     currentMode = "exam";
     const types = typeof getSelectedTypes === 'function' ? getSelectedTypes() : ['multiply', 'divide'];
@@ -56,9 +81,11 @@ function submitExamAnswer(value) {
     const isCorrect = Number(value) === examState.current.answer;
     if (isCorrect) {
         examState.correct++;
+        playAnswerSound(true);
         showExamFeedback('✓ Правильно', true);
     } else {
         examState.wrong++;
+        playAnswerSound(false);
         examState.errors.push(examState.current);
         showExamFeedback('✕ Неверно. Ответ: ' + examState.current.answer, false);
     }
