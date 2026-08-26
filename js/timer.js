@@ -37,7 +37,7 @@ function updateExamTimeBar(percent) {
     const fill = document.getElementById('exam-time-fill');
     if (!fill) return;
 
-    fill.style.width = Math.max(0, percent) + '%';
+    fill.style.transform = 'scaleX(' + Math.max(0, percent) / 100 + ')';
 }
 
 function stopAnswerTimer() {
