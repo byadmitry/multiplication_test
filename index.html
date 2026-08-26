@@ -8,17 +8,47 @@
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<div id="mode-selector">
-<button onclick="setMode('training')">Тренировка</button>
-<button onclick="setMode('exam')">Экзамен</button>
-</div>
 <div class="app">
 <h1>✕ Таблица умножения и ÷ деления</h1>
 <p class="subtitle">Проверь свои знания!</p>
-<div id="screen-settings" class="screen active"></div>
-<div id="screen-test" class="screen"></div>
-<div id="screen-results" class="screen"></div>
+
+<div id="mode-selector">
+<button type="button" onclick="setMode('training')">Тренировка</button>
+<button type="button" onclick="setMode('exam')">Экзамен</button>
 </div>
+
+<div id="screen-settings" class="screen active">
+<div class="settings-card">
+<div class="setting-row">
+<label>Количество вопросов:</label>
+<input id="q-count" type="number" min="1" max="126" value="20">
+</div>
+<div class="toggle-group">
+<button type="button" class="toggle-btn active" data-type="multiply">✕ Умножение</button>
+<button type="button" class="toggle-btn active" data-type="divide">÷ Деление</button>
+</div>
+<button type="button" class="btn btn-primary" onclick="startSelectedMode()">🚀 Начать тест</button>
+</div>
+</div>
+
+<div id="screen-test" class="screen">
+<div class="question-card">
+<div id="question-number" class="question-number"></div>
+<div id="question-expression" class="question-expression">—</div>
+<div class="answer-row"><span>=</span><input id="question-answer" class="q-answer-input" type="number"></div>
+<div id="answer-feedback" class="answer-feedback"></div>
+</div>
+<button id="btn-submit" class="btn btn-primary" onclick="submitCurrentAnswer()">Проверить</button>
+</div>
+
+<div id="screen-results" class="screen">
+<div class="results-card">
+<div id="result-text"></div>
+<button class="btn btn-secondary" onclick="location.reload()">Начать заново</button>
+</div>
+</div>
+</div>
+
 <script src="js/questions.js"></script>
 <script src="js/training.js"></script>
 <script src="js/exam.js"></script>
