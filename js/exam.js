@@ -10,7 +10,8 @@ let examState = {
     correct: 0,
     wrong: 0,
     total: 0,
-    locked: false
+    locked: false,
+    finished: false
 };
 
 function startExam() {
@@ -22,18 +23,20 @@ function startExam() {
     examState.correct = 0;
     examState.wrong = 0;
     examState.locked = false;
+    examState.finished = false;
     showScreen('screen-test');
     showNextExamQuestion();
 }
 
 function showNextExamQuestion() {
+    if (examState.finished) return;
     examState.locked = false;
     if (examState.queue.length) {
         examState.current = examState.queue.shift();
     } else if (examState.errors.length) {
         examState.current = examState.errors.shift();
     } else {
-        showResult('Экзамен завершён. Правильных: ' + examState.correct + ', ошибок: ' + examState.wrong);
+        finishExamEarly();
         return;
     }
 
@@ -42,7 +45,7 @@ function showNextExamQuestion() {
 }
 
 function submitExamAnswer(value) {
-    if (!examState.current || examState.locked) return;
+    if (!examState.current || examState.locked || examState.finished) return;
     examState.locked = true;
     stopAnswerTimer();
 
@@ -56,7 +59,9 @@ function submitExamAnswer(value) {
         showExamFeedback('✕ Неверно. Ответ: ' + examState.current.answer, false);
     }
 
-    setTimeout(showNextExamQuestion, EXAM_ANSWER_SHOW_MS);
+    setTimeout(() => {
+        if (!examState.finished) showNextExamQuestion();
+    }, EXAM_ANSWER_SHOW_MS);
 }
 
 function examTimeout() {
@@ -65,7 +70,10 @@ function examTimeout() {
 }
 
 function finishExamEarly() {
+    if (examState.finished) return;
+    examState.finished = true;
     stopAnswerTimer();
+    examState.current = null;
     showResult('Экзамен завершён. Правильных: ' + examState.correct + ', ошибок: ' + examState.wrong);
 }
 
