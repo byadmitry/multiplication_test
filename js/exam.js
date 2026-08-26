@@ -9,23 +9,25 @@ let examState = {
     current: null,
     correct: 0,
     wrong: 0,
-    total: 0
+    total: 0,
+    locked: false
 };
 
 function startExam() {
     currentMode = "exam";
     const types = typeof getSelectedTypes === 'function' ? getSelectedTypes() : ['multiply', 'divide'];
-    examState.queue = buildQuestionPool(types.length ? types : ['multiply', 'divide']).slice(0, Number(document.getElementById('q-count')?.value || 20));
+    examState.queue = buildQuestionPool(types).slice(0, Number(document.getElementById('q-count')?.value || 20));
     examState.errors = [];
     examState.current = null;
     examState.correct = 0;
     examState.wrong = 0;
-    examState.total = examState.queue.length;
+    examState.locked = false;
     showScreen('screen-test');
     showNextExamQuestion();
 }
 
 function showNextExamQuestion() {
+    examState.locked = false;
     if (examState.queue.length) {
         examState.current = examState.queue.shift();
     } else if (examState.errors.length) {
@@ -40,7 +42,8 @@ function showNextExamQuestion() {
 }
 
 function submitExamAnswer(value) {
-    if (!examState.current) return;
+    if (!examState.current || examState.locked) return;
+    examState.locked = true;
     stopAnswerTimer();
 
     const isCorrect = Number(value) === examState.current.answer;
@@ -57,9 +60,6 @@ function submitExamAnswer(value) {
 }
 
 function examTimeout() {
-    if (!examState.current) return;
-
-    // Проверяем уже введённое значение автоматически
     const input = document.getElementById('question-answer');
     submitExamAnswer(input ? input.value : '');
 }
@@ -72,13 +72,8 @@ function finishExamEarly() {
 function showExamFeedback(text, correct = null) {
     const el = document.getElementById('answer-feedback');
     if (!el) return;
-
     el.textContent = text;
     el.classList.remove('feedback-correct', 'feedback-wrong');
-
-    if (correct === true) {
-        el.classList.add('feedback-correct');
-    } else if (correct === false) {
-        el.classList.add('feedback-wrong');
-    }
+    if (correct === true) el.classList.add('feedback-correct');
+    if (correct === false) el.classList.add('feedback-wrong');
 }
