@@ -30,6 +30,7 @@ function renderQuestion(question, progressText = '', progressPercent = 0) {
                 <span>${progressText}</span>
                 <span>${progressPercent}%</span>
             </div>
+            <div class="exam-time-bar"><div id="exam-time-fill"></div></div>
         </div>
         <div class="question-card">
             <div class="question-expression">${question.expression}</div>
@@ -72,8 +73,8 @@ function returnToMenu() {
 }
 
 function updateTimerDisplay(seconds) {
-    const timer = document.getElementById('timer');
-    if (timer) timer.textContent = seconds;
+    const fill = document.getElementById('exam-time-fill');
+    if (fill) fill.style.width = Math.max(0, seconds * 20) + '%';
 }
 
 function finishEarly() {
