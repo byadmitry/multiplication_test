@@ -13,5 +13,13 @@
     background: var(--accent);
     transform-origin: left center;
     transform: scaleX(1);
-    transition: transform 0.1s linear;
+}
+
+@keyframes examCountdown {
+    from {
+        transform: scaleX(1);
+    }
+    to {
+        transform: scaleX(0);
+    }
 }
