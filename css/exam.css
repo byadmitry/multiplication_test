@@ -13,4 +13,5 @@
     background: var(--accent);
     transform-origin: left center;
     transform: scaleX(1);
+    transition: transform 0.1s linear;
 }
