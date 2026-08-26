@@ -12,11 +12,6 @@
 <h1>✕ Таблица умножения и ÷ деления</h1>
 <p class="subtitle">Проверь свои знания!</p>
 
-<div id="mode-selector">
-<button type="button" onclick="setMode('training')">Тренировка</button>
-<button type="button" onclick="setMode('exam')">Экзамен</button>
-</div>
-
 <div id="screen-settings" class="screen active">
 <div class="settings-card">
 <div class="setting-row">
@@ -24,10 +19,13 @@
 <input id="q-count" type="number" min="1" max="126" value="20">
 </div>
 <div class="toggle-group">
-<button type="button" class="toggle-btn active" data-type="multiply">✕ Умножение</button>
-<button type="button" class="toggle-btn active" data-type="divide">÷ Деление</button>
+<button type="button" class="toggle-btn active" data-type="multiply" onclick="toggleType(this)">✕ Умножение</button>
+<button type="button" class="toggle-btn active" data-type="divide" onclick="toggleType(this)">÷ Деление</button>
 </div>
-<button type="button" class="btn btn-primary" onclick="startSelectedMode()">🚀 Начать тест</button>
+<div class="q-buttons">
+<button type="button" class="btn btn-primary" onclick="startTraining()">🏋 Тренировка</button>
+<button type="button" class="btn btn-primary" onclick="startExam()">⏱ Экзамен</button>
+</div>
 </div>
 </div>
 
