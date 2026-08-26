@@ -2,7 +2,8 @@
 
 let trainingState = {
     questions: [],
-    index: 0
+    index: 0,
+    current: null
 };
 
 function startTraining() {
@@ -21,9 +22,8 @@ function showTrainingQuestion() {
     renderQuestion(q.expression);
 }
 
-function submitCurrent() {
-    const input = document.getElementById("answer-input");
-    if (Number(input.value) === trainingState.current.answer) {
+function submitTrainingAnswer(value) {
+    if (Number(value) === trainingState.current.answer) {
         trainingState.index++;
         showTrainingQuestion();
     } else {
