@@ -7,14 +7,16 @@ function startAnswerTimer(seconds, callback) {
     stopAnswerTimer();
     examTimerTotal = seconds;
     let left = seconds;
+
     if (typeof updateTimerDisplay === "function") {
-        updateTimerDisplay(left);
+        updateTimerDisplay(left, examTimerTotal);
     }
 
     examTimer = setInterval(() => {
         left--;
+
         if (typeof updateTimerDisplay === "function") {
-            updateTimerDisplay(left);
+            updateTimerDisplay(left, examTimerTotal);
         }
 
         if (left <= 0) {
