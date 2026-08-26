@@ -1,40 +1,53 @@
 // timer.js
 
 let examTimer = null;
+let examAnimation = null;
 let examTimerTotal = 0;
 
 function startAnswerTimer(seconds, callback) {
     stopAnswerTimer();
+
     examTimerTotal = seconds;
-    let left = seconds;
+    const startedAt = performance.now();
 
-    updateTimerDisplay(left, examTimerTotal);
-    updateExamTimeBar(left, examTimerTotal);
+    updateTimerDisplay(seconds, examTimerTotal);
+    updateExamTimeBar(100);
 
-    examTimer = setInterval(() => {
-        left--;
+    function animate() {
+        const elapsed = (performance.now() - startedAt) / 1000;
+        const left = Math.max(0, examTimerTotal - elapsed);
+        const percent = (left / examTimerTotal) * 100;
 
-        updateTimerDisplay(left, examTimerTotal);
-        updateExamTimeBar(left, examTimerTotal);
+        updateTimerDisplay(Math.ceil(left), examTimerTotal);
+        updateExamTimeBar(percent);
 
         if (left <= 0) {
             stopAnswerTimer();
             callback();
+            return;
         }
-    }, 1000);
+
+        examAnimation = requestAnimationFrame(animate);
+    }
+
+    examAnimation = requestAnimationFrame(animate);
 }
 
-function updateExamTimeBar(left, total) {
+function updateExamTimeBar(percent) {
     const fill = document.getElementById('exam-time-fill');
-    if (!fill || !total) return;
+    if (!fill) return;
 
-    const percent = Math.max(0, (left / total) * 100);
-    fill.style.width = percent + '%';
+    fill.style.width = Math.max(0, percent) + '%';
 }
 
 function stopAnswerTimer() {
     if (examTimer) {
         clearInterval(examTimer);
         examTimer = null;
+    }
+
+    if (examAnimation) {
+        cancelAnimationFrame(examAnimation);
+        examAnimation = null;
     }
 }
