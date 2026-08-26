@@ -16,8 +16,9 @@ function showScreen(id) {
 }
 
 function getSelectedTypes() {
-    return [...document.querySelectorAll('.toggle-btn.active')]
+    const types = [...document.querySelectorAll('.toggle-btn.active')]
         .map((button) => button.dataset.type);
+    return types.length ? types : ['multiply', 'divide'];
 }
 
 function renderQuestion(question, progressText = '', progressPercent = 0) {
