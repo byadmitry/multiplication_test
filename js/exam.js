@@ -9,6 +9,7 @@ let examState = {
     current: null,
     correct: 0,
     wrong: 0,
+    answered: 0,
     total: 0,
     locked: false,
     finished: false
@@ -17,12 +18,13 @@ let examState = {
 function startExam() {
     currentMode = "exam";
     const types = typeof getSelectedTypes === 'function' ? getSelectedTypes() : ['multiply', 'divide'];
-    examState.queue = buildQuestionPool(types).slice(0, Number(document.getElementById('q-count')?.value || 20));
+    examState.queue = buildQuestionPool(types);
     examState.total = examState.queue.length;
     examState.errors = [];
     examState.current = null;
     examState.correct = 0;
     examState.wrong = 0;
+    examState.answered = 0;
     examState.locked = false;
     examState.finished = false;
     showScreen('screen-test');
@@ -37,7 +39,7 @@ function showNextExamQuestion() {
     } else if (examState.errors.length) {
         examState.current = examState.errors.shift();
     } else {
-        finishExamEarly();
+        completeExam();
         return;
     }
 
@@ -49,6 +51,7 @@ function submitExamAnswer(value) {
     if (!examState.current || examState.locked || examState.finished) return;
     examState.locked = true;
     stopAnswerTimer();
+    examState.answered++;
 
     const isCorrect = Number(value) === examState.current.answer;
     if (isCorrect) {
@@ -75,7 +78,11 @@ function finishExamEarly() {
     examState.finished = true;
     stopAnswerTimer();
     examState.current = null;
-    showResult('Экзамен завершён<br>Всего вопросов: ' + examState.total + '<br>Правильных: ' + examState.correct + '<br>Ошибок: ' + examState.wrong);
+    showResult('Экзамен завершён<br>Всего вопросов: ' + examState.total + '<br>Отвечено: ' + examState.answered + '<br>Правильных: ' + examState.correct + '<br>Ошибок: ' + examState.wrong);
+}
+
+function completeExam() {
+    finishExamEarly();
 }
 
 function showExamFeedback(text, correct = null) {
