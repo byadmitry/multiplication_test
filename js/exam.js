@@ -42,30 +42,43 @@ function showNextExamQuestion() {
 function submitExamAnswer(value) {
     if (!examState.current) return;
     stopAnswerTimer();
-    if (Number(value) === examState.current.answer) {
+
+    const isCorrect = Number(value) === examState.current.answer;
+    if (isCorrect) {
         examState.correct++;
-        showNextExamQuestion();
+        showExamFeedback('✓ Правильно', true);
     } else {
         examState.wrong++;
         examState.errors.push(examState.current);
-        showExamFeedback('Ответ: ' + examState.current.answer);
-        setTimeout(showNextExamQuestion, EXAM_ANSWER_SHOW_MS);
+        showExamFeedback('✕ Неверно. Ответ: ' + examState.current.answer, false);
     }
+
+    setTimeout(showNextExamQuestion, EXAM_ANSWER_SHOW_MS);
 }
 
 function examTimeout() {
     if (!examState.current) return;
-    examState.wrong++;
-    examState.errors.push(examState.current);
-    showExamFeedback('Ответ: ' + examState.current.answer);
-    setTimeout(showNextExamQuestion, EXAM_ANSWER_SHOW_MS);
+
+    // Проверяем уже введённое значение автоматически
+    const input = document.getElementById('question-answer');
+    submitExamAnswer(input ? input.value : '');
 }
 
 function finishExamEarly() {
+    stopAnswerTimer();
     showResult('Экзамен завершён. Правильных: ' + examState.correct + ', ошибок: ' + examState.wrong);
 }
 
-function showExamFeedback(text) {
+function showExamFeedback(text, correct = null) {
     const el = document.getElementById('answer-feedback');
-    if (el) el.textContent = text;
+    if (!el) return;
+
+    el.textContent = text;
+    el.classList.remove('feedback-correct', 'feedback-wrong');
+
+    if (correct === true) {
+        el.classList.add('feedback-correct');
+    } else if (correct === false) {
+        el.classList.add('feedback-wrong');
+    }
 }
