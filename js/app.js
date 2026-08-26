@@ -30,7 +30,7 @@ function renderQuestion(question, progressText = '', progressPercent = 0) {
                 <span>${progressText}</span>
                 <span>${progressPercent}%</span>
             </div>
-            <div class="exam-time-bar"><div id="exam-time-fill"></div></div>
+            <div class="exam-time-bar"><div id="exam-time-fill" class="exam-time-fill"></div></div>
         </div>
         <div class="question-card">
             <div class="question-expression">${question.expression}</div>
