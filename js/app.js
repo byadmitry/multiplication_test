@@ -73,8 +73,8 @@ function returnToMenu() {
 }
 
 function updateTimerDisplay(seconds) {
-    const fill = document.getElementById('exam-time-fill');
-    if (fill) fill.style.width = Math.max(0, seconds * 20) + '%';
+    const timer = document.getElementById('exam-time-text');
+    if (timer) timer.textContent = seconds;
 }
 
 function finishEarly() {
