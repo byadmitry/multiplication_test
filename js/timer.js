@@ -10,8 +10,7 @@ function startAnswerTimer(seconds, callback) {
     examTimerTotal = seconds;
     const startedAt = performance.now();
 
-    updateTimerDisplay(seconds, examTimerTotal);
-    updateExamTimeBar(100);
+    resetExamTimeBar(seconds);
 
     function animate() {
         const elapsed = (performance.now() - startedAt) / 1000;
@@ -31,6 +30,15 @@ function startAnswerTimer(seconds, callback) {
     }
 
     examAnimation = requestAnimationFrame(animate);
+}
+
+function resetExamTimeBar(seconds) {
+    const fill = document.getElementById('exam-time-fill');
+    if (!fill) return;
+
+    fill.style.animation = 'none';
+    fill.style.width = '100%';
+    fill.style.transform = 'scaleX(1)';
 }
 
 function updateExamTimeBar(percent) {
