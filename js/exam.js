@@ -3,21 +3,21 @@
 const EXAM_TIME_SECONDS = 5;
 const EXAM_ANSWER_SHOW_MS = 2000;
 
-let examState = {
-    queue: [],
-    errors: [],
-    current: null,
-    correct: 0,
-    wrong: 0,
-    answered: 0,
-    total: 0,
-    locked: false,
-    finished: false
-};
+let examAudioContext = null;
+
+function getExamAudioContext() {
+    if (!examAudioContext) {
+        examAudioContext = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if (examAudioContext.state === 'suspended') {
+        examAudioContext.resume();
+    }
+    return examAudioContext;
+}
 
 function playAnswerSound(correct) {
     try {
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const audioContext = getExamAudioContext();
         const oscillator = audioContext.createOscillator();
         const gain = audioContext.createGain();
 
@@ -40,8 +40,21 @@ function playAnswerSound(correct) {
     }
 }
 
+let examState = {
+    queue: [],
+    errors: [],
+    current: null,
+    correct: 0,
+    wrong: 0,
+    answered: 0,
+    total: 0,
+    locked: false,
+    finished: false
+};
+
 function startExam() {
     currentMode = "exam";
+    getExamAudioContext();
     const types = typeof getSelectedTypes === 'function' ? getSelectedTypes() : ['multiply', 'divide'];
     examState.queue = buildQuestionPool(types);
     examState.total = examState.queue.length;
@@ -67,7 +80,6 @@ function showNextExamQuestion() {
         completeExam();
         return;
     }
-
     renderQuestion(examState.current);
     startAnswerTimer(EXAM_TIME_SECONDS, examTimeout);
 }
@@ -77,7 +89,6 @@ function submitExamAnswer(value) {
     examState.locked = true;
     stopAnswerTimer();
     examState.answered++;
-
     const isCorrect = Number(value) === examState.current.answer;
     if (isCorrect) {
         examState.correct++;
@@ -89,7 +100,6 @@ function submitExamAnswer(value) {
         examState.errors.push(examState.current);
         showExamFeedback('✕ Неверно. Ответ: ' + examState.current.answer, false);
     }
-
     setTimeout(() => {
         if (!examState.finished) showNextExamQuestion();
     }, EXAM_ANSWER_SHOW_MS);
