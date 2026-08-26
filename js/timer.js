@@ -8,16 +8,12 @@ function startAnswerTimer(seconds, callback) {
     examTimerTotal = seconds;
     let left = seconds;
 
-    if (typeof updateTimerDisplay === "function") {
-        updateTimerDisplay(left, examTimerTotal);
-    }
+    updateTimerDisplay(left, examTimerTotal);
 
     examTimer = setInterval(() => {
         left--;
 
-        if (typeof updateTimerDisplay === "function") {
-            updateTimerDisplay(left, examTimerTotal);
-        }
+        updateTimerDisplay(left, examTimerTotal);
 
         if (left <= 0) {
             stopAnswerTimer();
