@@ -75,7 +75,7 @@ function finishExamEarly() {
     examState.finished = true;
     stopAnswerTimer();
     examState.current = null;
-    showResult('Экзамен завершён. Решено: ' + examState.total + ' вопросов. Правильных: ' + examState.correct + ', ошибок: ' + examState.wrong);
+    showResult('Экзамен завершён<br>Всего вопросов: ' + examState.total + '<br>Правильных: ' + examState.correct + '<br>Ошибок: ' + examState.wrong);
 }
 
 function showExamFeedback(text, correct = null) {
